@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-
+import UserCreate from '../components/CreateUserscomp.vue'
+import EditUser from '../components/EditUsercomp.vue'
 import firebase from 'firebase'
 Vue.use(VueRouter)
 
@@ -48,7 +49,23 @@ const routes = [
     autenticado:true,
   },
   component: () => import(/* webpackChunkName: "about" */ '../views/Users.vue')
-  }
+  },
+  {
+    path: '/usuarios/:id',
+    name: 'edit',
+    component: EditUser,
+    meta:{
+      autenticado:true,
+    }
+  },
+  {
+    path:"/usuario",
+    name:'addUser',
+    component:UserCreate,
+    meta:{
+      autenticado:true,
+    }
+  },
 ]
 
 let router = new VueRouter({

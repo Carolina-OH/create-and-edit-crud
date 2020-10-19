@@ -1,51 +1,71 @@
-<!-- <template>
+<template>
     <div>
-        <label for="">Editar</label>
+<form>
+        <label for="">Editar :</label>
         <input type="checkbox" v-model="edit"><br>
-        <label>Nombre</label>
-        <input v-model="users.name" :disabled="!edit"></input><br>
+        <label for="">Nombre</label>
+        <input type="text" v-model="form.name" :disabled="!edit"><br>
 
-        <label>Email</label>
-        <input v-model="users.email" :disabled="!edit"></input>
+        <label for="">Email</label>
+        <input type="text" v-model="form.email" :disabled="!edit"><br>
 
-        <button @click.prevent="updateUser" :disabled="!edit">Editar</button>
+        <button @click.prevent="editUser" :disabled="!edit">Editar</button>
 
+    </form>
     </div>
 </template>
 
 <script>
 
-import {mapState,mapActions} from 'vuex'
+import {mapGetters,mapState,mapActions} from 'vuex'
 export default {
     name: 'EditUsercomp',
     props: ['id'],
     data: function(){
         return {
-            users:{
+            form:{
                 name:"",
                 email:"",
             },
             edit: false
         }
     },
-    // computed: {},
+    computed: {
+        ...mapGetters(['getUser']),
+        ...mapState(['users'])
+    },
     methods: {
-        editBook(){
-            let user = this.users
+            async setUser() {
+            let user = this.getUser(this.id)
+            //  console.log(user)
+             if (user === undefined) {
+                let resp = await this.fetchIdUser(this.id)
+                user = resp.data()
+                console.log(user)
+            }
+            this.form.name = user.name
+            this.form.email = user.email 
+        },
+        editUser(){
+            let user = this.form
             user.id = this.id
             let response = this.updateUser(user)
             response.then(()=>{
                 alert('Usuario actualizado')
+                this.$router.push("/usuarios")
             }).catch(error=>{
                 console.log(error)
         })
         },
-        ...mapActions(['updateUser'])
+        ...mapActions(['fetchIdUser','updateUser'])
     },
     // components: {},
+    created(){
+        this.setUser();
+    }
 }
 </script>
 
 <style scoped>
     
-</style> !-->
+</style> 

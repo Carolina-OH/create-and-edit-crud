@@ -7,7 +7,7 @@
         <label>Email</label>
         <input v-model="users.email"></input>
 
-        <button @click="createUser">Registrar</button>
+        <button @click.prevent="createUser">Registrar</button>
     </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
         createUser(){
             this.adduser(this.users).then(()=>{
                 alert('Usuario registrado exitosamente')
+            this.$router.push('/usuarios')
             }).catch(error=>{
                 console.log(error)
             })

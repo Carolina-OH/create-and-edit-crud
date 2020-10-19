@@ -30,7 +30,7 @@ export default new Vuex.Store({
         })
       })
     },
-    fetchIduser({},id_user){
+    fetchIdUser({},id_user){
       return db.collection('users').doc(id_user).get()
     },
     adduser({},user){
@@ -41,7 +41,7 @@ export default new Vuex.Store({
     },
   },
   getters:{
-    getuser:(state)=>(id_user)=>{
+    getUser:(state)=>(id_user)=>{
       return state.users.find(user=>user.id == id_user)
     }
   },
