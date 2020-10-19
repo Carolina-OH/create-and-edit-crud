@@ -1,10 +1,13 @@
 <template>
   <div class="home">
     <div class="navi">
+     <router-link to="/users">Usuarios registrados</router-link>
     <button @click="logout" id="logout">SALIR</button> <br>
     </div>
      <h1 >Bienvenido</h1>
+    
     <img alt="Welcome logo" src="../assets/welcome.gif">
+    
     
    
   </div>
