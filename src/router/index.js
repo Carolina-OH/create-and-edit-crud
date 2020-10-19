@@ -53,6 +53,7 @@ const routes = [
   {
     path: '/usuarios/:id',
     name: 'edit',
+    props:true,
     component: EditUser,
     meta:{
       autenticado:true,

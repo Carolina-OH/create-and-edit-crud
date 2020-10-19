@@ -38,11 +38,7 @@ export default {
             async setUser() {
             let user = this.getUser(this.id)
             //  console.log(user)
-             if (user === undefined) {
-                let resp = await this.fetchIdUser(this.id)
-                user = resp.data()
-                console.log(user)
-            }
+
             this.form.name = user.name
             this.form.email = user.email 
         },
