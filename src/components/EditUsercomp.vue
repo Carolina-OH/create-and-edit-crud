@@ -10,7 +10,7 @@
         <input type="text" v-model="form.email" :disabled="!edit"><br>
 
         <button @click.prevent="editUser" :disabled="!edit">Editar</button>
-
+         <img alt="Welcome logo" src="../assets/loading.gif" :disabled="loading">
     </form>
     </div>
 </template>
@@ -27,7 +27,8 @@ export default {
                 name:"",
                 email:"",
             },
-            edit: false
+            edit: false,
+            loading:true,
         }
     },
     computed: {
@@ -38,7 +39,11 @@ export default {
             async setUser() {
             let user = this.getUser(this.id)
             //  console.log(user)
-
+            
+            if (user === undefined) {
+                let resp = await this.fetchIdUser(this.id)
+                user = resp.data()
+            }
             this.form.name = user.name
             this.form.email = user.email 
         },
